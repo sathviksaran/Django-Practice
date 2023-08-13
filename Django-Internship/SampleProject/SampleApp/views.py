@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import EmployeeData
+from .forms import Eform
+from django.contrib import messages
 
 # Create your views here.
 
@@ -79,3 +81,25 @@ def emdel(request,y):
 		k.delete()
 		return redirect('/')
 	return render(request,'bt/emdel.html',{'s':k})
+
+def crd(request):
+	d = EmployeeData.objects.all()
+	if request.method == "POST":
+		s = Eform(request.POST)
+		if s.is_valid():
+			s.save()
+			messages.success(request,"Employee Added Successfully!!!")
+			return redirect('/')
+	s = Eform()
+	return render(request,'bt/crd.html',{'y':s,'k':d})
+
+def epdt(request,w):
+	g = EmployeeData.objects.get(id=w)
+	if request.method == "POST":
+		n = Eform(request.POST,instance=g)
+		if n.is_valid():
+			n.save()
+			messages.error(request,'Employee Updated')
+			return redirect('/')
+	n = Eform(instance=g)
+	return render(request,'bt/epd.html',{'c':n})

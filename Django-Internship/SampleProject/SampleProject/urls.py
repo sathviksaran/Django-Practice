@@ -36,7 +36,11 @@ urlpatterns = [
 
     # Offline bootstrap Procedure
     path('home/',views.btp,name='hm'),
-    path('',views.crud,name="crd"),
+    path('cr/',views.crud,name="crd"),
     path('eup/<int:r>/',views.emupdate,name="eupd"),
     path('edt/<int:y>/',views.emdel,name="edte"),
+
+    # forms
+    path('',views.crd,name="cr"),
+    path('ep/<int:w>/',views.epdt,name="epd"),
 ]
