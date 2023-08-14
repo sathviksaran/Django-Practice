@@ -41,6 +41,9 @@ urlpatterns = [
     path('edt/<int:y>/',views.emdel,name="edte"),
 
     # forms
-    path('',views.crd,name="cr"),
+    path('typ/',views.crd,name="cr"),
     path('ep/<int:w>/',views.epdt,name="epd"),
+
+    # mail
+    path('',views.cntm,name="mail"),
 ]

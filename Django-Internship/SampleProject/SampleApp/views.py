@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from .models import EmployeeData
 from .forms import Eform
 from django.contrib import messages
+from SampleProject import settings
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -103,3 +105,18 @@ def epdt(request,w):
 			return redirect('/')
 	n = Eform(instance=g)
 	return render(request,'bt/epd.html',{'c':n})
+
+def cntm(request):
+	if request.method=="POST":
+		rc = request.POST['rcm']
+		sb = request.POST['sub']
+		ds = request.POST['des']
+		s = settings.EMAIL_HOST_USER
+		c = send_mail(sb,ds,s,[rc])
+		if c == 1:
+			messages.success(request,'Mail sent successfully')
+			return redirect('/')
+		else:
+			messages.info(request,'Mail not sent from user')
+			return redirect('/')
+	return render(request,'bt/mail.html')
