@@ -108,11 +108,11 @@ def epdt(request,w):
 
 def cntm(request):
 	if request.method=="POST":
-		rc = request.POST['rcm']
+		rc = request.POST['rcm'].split(',')
 		sb = request.POST['sub']
 		ds = request.POST['des']
 		s = settings.EMAIL_HOST_USER
-		c = send_mail(sb,ds,s,[rc])
+		c = send_mail(sb,ds,s,rc)
 		if c == 1:
 			messages.success(request,'Mail sent successfully')
 			return redirect('/')

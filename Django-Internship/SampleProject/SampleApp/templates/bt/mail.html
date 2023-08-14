@@ -32,6 +32,9 @@
             <li class="nav-item">
               <a class="nav-link" href="#">CRUD-Forms</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Mail</a>
+              </li>
           </ul>
         </div>  
       </nav>
@@ -49,7 +52,7 @@
                 <h4>Mail Sending</h4>
                 <form method="post">
                     {% csrf_token %}
-                    <input type="email" name="rcm" class="form-control my-2" placeholder="Enter MailID">
+                    <input type="text" name="rcm" class="form-control my-2" placeholder="Enter MailID">
                     <input type="text" name="sub" class="form-control my-2" placeholder="Enter Subject">
                     <textarea class="form-control my-2" placeholder="Enter text here......" name="des"></textarea>
                     <input type="submit" value="Send Mail" class="btn btn-block btn-success">
