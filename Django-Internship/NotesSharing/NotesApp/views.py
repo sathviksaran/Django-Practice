@@ -19,9 +19,7 @@ def register(request):
 			d=u.save(commit=False)
 			messages.success(request,f"{d.username} User Created Successfully")
 			d.save()
-		else:
-			messages.warning(request,"User is not created!!!!")
-		return redirect('/reg')
+			return redirect('/login')
 	else:
 		u = UsForm()
 	return render(request,'notehtmls/register.html',{'us':u})

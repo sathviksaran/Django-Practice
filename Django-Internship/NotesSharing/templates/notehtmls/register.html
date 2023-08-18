@@ -5,14 +5,15 @@
   <div class="card col-md-5 mx-auto shadow-lg">
     <div class="card-body">
       <h4>Register</h4>
-      <form method="post">
+      <form method="post" novalidate>
         {% csrf_token %}
         {% for i in us %}
           {{i}}
+          <p class="text-danger" style="margin:0px;padding:0px;font-size:12px">{{i.errors|striptags}}</p>
         {% endfor %}
         <div class="row">
           <div class="col">
-            <a href="" class="btn btn-outline-primary form-control">Existing User?</a>
+            <a href="{% url 'lg' %}" class="btn btn-outline-primary form-control">Existing User?</a>
           </div>
           <div class="col">
             <input type="submit" value="Create User" class="btn btn-outline-success form-control">
@@ -21,7 +22,8 @@
       </form>
     </div>
   </div>
-  {% if messages %}
+</div>
+  <!--{% if messages %}
     {% for i in messages %}
     <div class="toast col-sm-6" data-delay="5000" data-autohide="true" style="position:absolute;top:5rem;right:10px">
       <div class="toast-header">
@@ -35,5 +37,5 @@
     </div>
     {% endfor %}
   {% endif %}
-</div>
+</div>-->
 {% endblock %}
