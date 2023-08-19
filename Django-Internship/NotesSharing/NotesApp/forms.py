@@ -7,10 +7,31 @@ class UsForm(UserCreationForm):
 	password2 = forms.CharField(widget=forms.PasswordInput(attrs={"class":"form-control my-2","placeholder":"Confirm Password"}))
 	class Meta:
 		model = User
-		fields = ["username"]
+		fields = ["username","uq"]
 		widgets = {
 		"username":forms.TextInput(attrs={
 			"class":"form-control my-2",
 			"placeholder":"Username",
+			}),
+		"uq":forms.TextInput(attrs={
+			"class":"form-control my-2",
+			"placeholder":"Roll Number/Employee ID",
+			}),
+		}
+
+class Adrolech(forms.ModelForm):
+	class Meta:
+		model = User
+		fields = ["username","uq","role"]
+		widgets = {
+		"username":forms.TextInput(attrs={
+			"class":"form-control my-2",
+			"readonly":"true",
+			}),
+		"uq":forms.TextInput(attrs={
+			"class":"form-control my-2",
+			}),
+		"role":forms.Select(attrs={
+			"class":"form-control my-2",
 			}),
 		}
