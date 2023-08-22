@@ -1,4 +1,4 @@
-from NotesApp.models import User
+from NotesApp.models import User,TProfile,SProfile
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
@@ -33,5 +33,29 @@ class Adrolech(forms.ModelForm):
 			}),
 		"role":forms.Select(attrs={
 			"class":"form-control my-2",
+			}),
+		}
+
+class TchPf(forms.ModelForm):
+	class Meta:
+		model = TProfile
+		fields = ["branch","subjects","expr","designation"]
+		widgets = {
+		"branch":forms.TextInput(attrs={
+			"class":"form-control my-2",
+			"placeholder":"Enter Branch",
+			}),
+		"subjects":forms.TextInput(attrs={
+			"class":"form-control my-2",
+			"placeholder":"Enter Subject",
+			}),
+		"expr":forms.NumberInput(attrs={
+			"class":"form-control my-2",
+			"placeholder":"Enter Branch",
+			"min":1,
+			}),
+		"designation":forms.TextInput(attrs={
+			"class":"form-control my-2",
+			"placeholder":"Enter Designation",
 			}),
 		}

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import UsForm,Adrolech
+from .forms import UsForm,Adrolech,TchPf
 from django.contrib import messages
 from .models import User
 
@@ -39,3 +39,6 @@ def roleupdate(request,t):
 			return redirect('/roles')
 	n = Adrolech(instance=g)
 	return render(request,'notehtmls/roleupdate.html',{'v':n})
+
+def profile(request):
+	return render(request,'notehtmls/profile.html')

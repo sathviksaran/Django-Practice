@@ -12,4 +12,5 @@ urlpatterns = [
 	path('logout/',v.LogoutView.as_view(template_name="notehtmls/logout.html"),name="lgo"),
     path('roles/',views.rolechange,name="role"),
 	path('roleup/<int:t>/',views.roleupdate,name="rolup"),
+    path('pfle/',views.profile,name="pf"),
 ]

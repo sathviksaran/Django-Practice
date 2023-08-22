@@ -54,7 +54,7 @@
             Hi User {{request.user.username}}
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Profile</a>
+            <a class="dropdown-item {% if request.path == '/pfle/' %}active{% endif %}" href="{% url 'pf' %}">Profile</a>
             <a class="dropdown-item" href="#">Change Password</a>
             <a class="dropdown-item {% if request.path == '/logout/' %}active{% endif %}" href="{% url 'lgo' %}">Logout</a>
           </div>
