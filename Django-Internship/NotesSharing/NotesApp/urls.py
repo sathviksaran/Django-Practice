@@ -13,4 +13,5 @@ urlpatterns = [
     path('roles/',views.rolechange,name="role"),
 	path('roleup/<int:t>/',views.roleupdate,name="rolup"),
     path('pfle/',views.profile,name="pf"),
+    path('uppf/',views.updateprofile,name="uppfle"),
 ]

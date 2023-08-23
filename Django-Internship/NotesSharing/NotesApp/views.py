@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
-from .forms import UsForm,Adrolech,TchPf
+from .forms import UsForm,Adrolech,TchPf,UsupForm
 from django.contrib import messages
-from .models import User
+from .models import User,TProfile
 
 # Create your views here.
 def home(request):
@@ -42,3 +42,33 @@ def roleupdate(request,t):
 
 def profile(request):
 	return render(request,'notehtmls/profile.html')
+
+def updateprofile(request):
+	h = User.objects.get(id=request.user.id)
+	if h.role == 'T' and h.is_teacher == 0:
+		if request.method == "POST":
+			m = UsupForm(request.POST,instance=h)
+			k = TchPf(request.POST)
+			if m.is_valid() and k.is_valid():
+				p = m.save(commit=False)
+				p.is_teacher = 1
+				p.save()
+				q = k.save(commit=False)
+				q.tch_id = request.user.id
+				q.save()
+				return redirect('/pfle')
+		m = UsupForm(instance=h)
+		k = TchPf()
+		return render(request,'notehtmls/upprofile.html',{'y':m,'n':k})
+	else:
+		b = TProfile.objects.get(tch_id=request.user.id)
+		if request.method == "POST":
+			m = UsupForm(request.POST,instance=h)
+			k = TchPf(request.POST,instance=b)
+			if m.is_valid() and k.is_valid():
+				m.save()
+				k.save()
+				return redirect('/pfle')
+		m = UsupForm(instance=h)
+		k = TchPf(instance=b)
+		return render(request,'notehtmls/upprofile.html',{'y':m,'n':k})

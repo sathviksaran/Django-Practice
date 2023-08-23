@@ -56,8 +56,16 @@
 						<td>Last Login</td>
 						<td>{{request.user.last_login}}</td>
 					</tr>
+					{% if request.user.is_teacher == 1 %}
+					<tr>
+						<td>Branch</td>
+						<td>{{request.user.tprofile.branch}}</td>
+						<td>Subject</td>
+						<td>{{request.user.tprofile.subjects}}</td>
+					</tr>
+					{% endif %}
 				</table>
-				<a href="" class="btn btn-block btn-outline-success">Update Profile</a>
+				<a href="{% url 'uppfle' %}" class="btn btn-block btn-outline-success">Update Profile</a>
 			</div>
 		</div>
 	</div>
