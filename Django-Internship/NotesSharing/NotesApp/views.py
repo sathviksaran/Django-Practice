@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
-from .forms import UsForm,Adrolech,TchPf,UsupForm
+from .forms import UsForm,Adrolech,TchPf,UsupForm,StForm
 from django.contrib import messages
-from .models import User,TProfile
+from .models import User,TProfile,SProfile
 
 # Create your views here.
 def home(request):
@@ -45,30 +45,69 @@ def profile(request):
 
 def updateprofile(request):
 	h = User.objects.get(id=request.user.id)
-	if h.role == 'T' and h.is_teacher == 0:
-		if request.method == "POST":
-			m = UsupForm(request.POST,instance=h)
-			k = TchPf(request.POST)
-			if m.is_valid() and k.is_valid():
-				p = m.save(commit=False)
-				p.is_teacher = 1
-				p.save()
-				q = k.save(commit=False)
-				q.tch_id = request.user.id
-				q.save()
-				return redirect('/pfle')
-		m = UsupForm(instance=h)
-		k = TchPf()
-		return render(request,'notehtmls/upprofile.html',{'y':m,'n':k})
+	d = []
+	if h.role == 'T':
+		c = TProfile.objects.filter(tch_id=request.user.id)
+		for i in c:
+			d.append(i.tch_id)
+		if request.user.id not in d:
+			if request.method == "POST":
+				v = UsupForm(request.POST,request.FILES,instance=h)
+				s = TchPf(request.POST)
+				if v.is_valid and s.is_valid:
+					n = v.save(commit=False)
+					n.is_teacher = 1
+					n.save()
+					r = s.save(commit=False)
+					r.tch_id = request.user.id
+					r.save()
+					return redirect('/pfle')
+			v = UsupForm(instance=h)
+			s = TchPf()
+			return render(request,'notehtmls/upprofile.html',{'y':v,'n':s})
+		else:
+			f = TProfile.objects.get(tch_id=request.user.id)
+			if request.method == "POST":
+				v = UsupForm(request.POST,request.FILES,instance=h)
+				s = TchPf(request.POST,instance=f)
+				if v.is_valid and s.is_valid:
+					v.save()
+					s.save()
+					return redirect('/pfle')
+			v = UsupForm(instance=h)
+			s = TchPf(instance=f)
+			return render(request,'notehtmls/upprofile.html',{'y':v,'n':s})
+	elif h.role == 'S':
+		x = SProfile.objects.filter(stdnt_id=request.user.id)
+		u = []
+		for i in x:
+			u.append(i.stdnt_id)
+		if request.user.id not in u:
+			if request.method == "POST":
+				v = UsupForm(request.POST,request.FILES,instance=h)
+				g = StForm(request.POST)
+				if v.is_valid and g.is_valid:
+					a = v.save(commit=False)
+					a.is_student = 1
+					a.save()
+					e = g.save(commit=False)
+					e.stdnt_id=request.user.id
+					e.save()
+					return redirect('/pfle')
+			v = UsupForm(instance=h)
+			g = StForm()
+			return render(request,'notehtmls/upprofile.html',{'y':v,'d':g})
+		else:
+			q = SProfile.objects.get(stdnt_id=request.user.id)
+			if request.method == "POST":
+				v = UsupForm(request.POST,request.FILES,instance=h)
+				g = StForm(request.POST,instance=q)
+				if v.is_valid and g.is_valid:
+					v.save()
+					g.save()
+					return redirect('/pfle')
+			v = UsupForm(instance=h)
+			g = StForm(instance=q)
+			return render(request,'notehtmls/upprofile.html',{'y':v,'d':g})
 	else:
-		b = TProfile.objects.get(tch_id=request.user.id)
-		if request.method == "POST":
-			m = UsupForm(request.POST,instance=h)
-			k = TchPf(request.POST,instance=b)
-			if m.is_valid() and k.is_valid():
-				m.save()
-				k.save()
-				return redirect('/pfle')
-		m = UsupForm(instance=h)
-		k = TchPf(instance=b)
-		return render(request,'notehtmls/upprofile.html',{'y':m,'n':k})
+		pass

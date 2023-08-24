@@ -39,7 +39,7 @@ class Adrolech(forms.ModelForm):
 class UsupForm(forms.ModelForm):
 	class Meta:
 		model = User
-		fields = ["username","first_name","last_name","email","gd","mb"]
+		fields = ["username","first_name","last_name","email","gd","mb","pfimg"]
 		widgets = {
 		"username":forms.TextInput(attrs={
 			"class":"form-control my-2",
@@ -65,6 +65,7 @@ class UsupForm(forms.ModelForm):
 			"placeholder":"Mobile Number",
 			}),
 		}
+
 class TchPf(forms.ModelForm):
 	class Meta:
 		model = TProfile
@@ -80,11 +81,25 @@ class TchPf(forms.ModelForm):
 			}),
 		"expr":forms.NumberInput(attrs={
 			"class":"form-control my-2",
-			"placeholder":"Enter Branch",
+			"placeholder":"Enter Experience",
 			"min":1,
 			}),
 		"designation":forms.TextInput(attrs={
 			"class":"form-control my-2",
 			"placeholder":"Enter Designation",
+			}),
+		}
+
+class StForm(forms.ModelForm):
+	class Meta:
+		model = SProfile
+		fields = ["branch","year"]
+		widgets = {
+		"branch":forms.TextInput(attrs={
+			"class":"form-control my-2",
+			"placeholder":"Enter Branch",
+			}),
+		"year":forms.Select(attrs={
+			"class":"form-control my-2",
 			}),
 		}

@@ -129,3 +129,6 @@ LOGIN_REDIRECT_URL = 'hm'
 
 
 AUTH_USER_MODEL = 'NotesApp.User'
+
+MEDIA_URL = '/images/'
+MEDIA_ROOT = BASE_DIR/'static/images/'

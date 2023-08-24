@@ -4,7 +4,8 @@
 <div class="container mt-4">
 	<div class="row">
 		<div class="card col-md-3 shadow-lg h-100 m-2">
-			<div class="card-body">
+			<div class="card-body text-center">
+				<img src="{{request.user.pfimg.url}}" class="rounded-circle" height="150px" width="150px">
 				<h4>{{request.user.username}}</h4>
 			</div>
 		</div>
@@ -62,6 +63,13 @@
 						<td>{{request.user.tprofile.branch}}</td>
 						<td>Subject</td>
 						<td>{{request.user.tprofile.subjects}}</td>
+					</tr>
+					{% else %}
+					<tr>
+						<td>Branch</td>
+						<td>{{request.user.sprofile.branch}}</td>
+						<td>Year</td>
+						<td>{{request.user.sprofile.year}}</td>
 					</tr>
 					{% endif %}
 				</table>

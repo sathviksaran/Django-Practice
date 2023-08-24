@@ -20,6 +20,7 @@ class User(AbstractUser):
 	role = models.CharField(choices=p,default='G',max_length=5)
 	is_teacher = models.BooleanField(default=False)
 	is_student = models.BooleanField(default=False)
+	pfimg = models.ImageField(upload_to='Profiles/',default='demoprofile.png')
 
 class TProfile(models.Model):
 	branch = models.CharField(max_length=50)

@@ -14,6 +14,11 @@
 					{% for j in n %}
 						{{j}}
 					{% endfor %}
+				{% elif request.user.role == 'S' %}
+					{% for j in d %}
+						{{j}}
+					{% endfor %}
+				{% else %}
 				{% endif %}
 				<div class="row">
 					<div class="col">
