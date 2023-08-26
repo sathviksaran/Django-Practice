@@ -1,4 +1,4 @@
-from NotesApp.models import User,TProfile,SProfile
+from NotesApp.models import User,TProfile,SProfile,Notes
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
@@ -101,5 +101,27 @@ class StForm(forms.ModelForm):
 			}),
 		"year":forms.Select(attrs={
 			"class":"form-control my-2",
+			}),
+		}
+
+class NoteForm(forms.ModelForm):
+	class Meta:
+		model = Notes
+		fields = ["branch","year","subject","descnote","ntfile"]
+		widgets = {
+		"branch":forms.TextInput(attrs={
+			"class":"form-control my-2",
+			"placeholder":"Enter Branch",
+			}),
+		"year":forms.Select(attrs={
+			"class":"form-control my-2",
+			}),
+		"subject":forms.TextInput(attrs={
+			"class":"form-control my-2",
+			"placeholder":"Enter Subject",
+			}),
+		"descnote":forms.TextInput(attrs={
+			"class":"form-control my-2",
+			"placeholder":"Enter Description",
 			}),
 		}

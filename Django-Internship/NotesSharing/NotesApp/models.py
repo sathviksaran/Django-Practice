@@ -40,3 +40,20 @@ class SProfile(models.Model):
 	branch = models.CharField(max_length=50)
 	year = models.CharField(default='0',choices=y,max_length=5)
 	stdnt = models.OneToOneField(User,on_delete=models.CASCADE)
+
+class Notes(models.Model):
+	y = [
+		('0','Select Year'),
+		('1','1st Year'),
+		('2','2nd Year'),
+		('3','3rd Year'),
+		('4','4th Year'),
+	]
+	branch = models.CharField(max_length=50)
+	year = models.CharField(default='0',choices=y,max_length=5)
+	subject = models.CharField(max_length=50)
+	descnote = models.CharField(max_length=10)
+	ntfile = models.FileField(upload_to='DataFiles')
+	date_created = models.DateField(auto_now=True)
+	sckey = models.CharField(max_length=10)
+	usr = models.ForeignKey(User,on_delete=models.CASCADE)

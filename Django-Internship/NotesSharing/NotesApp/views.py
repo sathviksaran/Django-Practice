@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
-from .forms import UsForm,Adrolech,TchPf,UsupForm,StForm
+from .forms import UsForm,Adrolech,TchPf,UsupForm,StForm,NoteForm
 from django.contrib import messages
-from .models import User,TProfile,SProfile
+from .models import User,TProfile,SProfile,Notes
+import secrets
 
 # Create your views here.
 def home(request):
@@ -111,3 +112,16 @@ def updateprofile(request):
 			return render(request,'notehtmls/upprofile.html',{'y':v,'d':g})
 	else:
 		pass
+
+def noteslist(request):
+	n = Notes.objects.filter(usr_id=request.user.id)
+	if request.method == "POST":
+		c = NoteForm(request.POST,request.FILES)
+		if c.is_valid():
+			z = c.save(commit=False)
+			z.sckey = secrets.token_hex(2)
+			z.usr_id = request.user.id
+			z.save()
+			return redirect('/notes')
+	c = NoteForm()
+	return render(request,'notehtmls/notelist.html',{'p':c,'z':n})

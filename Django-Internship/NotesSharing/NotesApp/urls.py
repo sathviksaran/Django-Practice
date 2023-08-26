@@ -14,4 +14,5 @@ urlpatterns = [
 	path('roleup/<int:t>/',views.roleupdate,name="rolup"),
     path('pfle/',views.profile,name="pf"),
     path('uppf/',views.updateprofile,name="uppfle"),
+    path('notes/',views.noteslist,name="ntlist")
 ]

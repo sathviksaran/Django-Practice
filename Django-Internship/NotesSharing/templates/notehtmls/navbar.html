@@ -30,7 +30,7 @@
         </li>
         {% elif user.role == 'T' and user.is_teacher == 1 %}
         <li class="nav-item">
-          <a class="nav-link" href="">Notes</a>
+          <a class="nav-link" href="{% url 'ntlist' %}">Notes</a>
         </li>
         {% elif user.role == 'S' and user.is_student == 1 %}
         <li class="nav-item">
